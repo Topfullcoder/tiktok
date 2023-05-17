@@ -224,12 +224,15 @@ def signup_view(request):
         else:
             return JsonResponse({'message': 'Error occurred during signup'}, status=500)
 
+@csrf_protect
 @api_view(['POST'])
 def signin_view(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         username_or_email = data.get('usernameOrEmail')
         password = data.get('inPassword')
+        users = User.objects.all()
+        print(users)
         
         user = authenticate(request, username=username_or_email, password=password)
         if user is not None:
