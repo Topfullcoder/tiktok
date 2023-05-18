@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { variables } from "../Variables.js";
 
 const Link = () => {
   const [links, setLinks] = useState([]);
@@ -12,7 +11,7 @@ const Link = () => {
 
   const refreshList = () => {
     axios
-      .get(variables.API_URL + "links/")
+      .get(process.env.BACKEND_API_URL + "links/")
       .then((response) => {
         setLinks(response.data);
       })
@@ -49,7 +48,7 @@ const Link = () => {
   const createClick = () => {
     axios
       .post(
-        variables.API_URL + "links/",
+        process.env.BACKEND_API_URL + "links/",
         {
           linkname: linkName,
           linkurl: linkUrl,
@@ -67,7 +66,7 @@ const Link = () => {
   const updateClick = (id) => {
     axios
       .put(
-        variables.API_URL + "links/" + id,
+        process.env.BACKEND_API_URL + "links/" + id,
         {
           linkname: linkName,
           linkurl: linkUrl
@@ -91,7 +90,7 @@ const Link = () => {
   const deleteClick = (id) => {
     if (window.confirm("Are you sure?")) {
       axios
-        .delete(variables.API_URL + "links/" + id, {
+        .delete(process.env.BACKEND_API_URL + "links/" + id, {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",

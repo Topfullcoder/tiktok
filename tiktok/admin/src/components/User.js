@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { variables } from "../Variables.js";
+
 
 const User = () => {
   const [users, setUsers] = useState([]);
@@ -12,7 +12,7 @@ const User = () => {
 
   const refreshList = () => {
     axios
-      .get(variables.API_URL + "users/")
+      .get(process.env.BACKEND_API_URL + "users/")
       .then((response) => {
         setUsers(response.data);
       })
@@ -55,7 +55,7 @@ const User = () => {
 
   const createClick = () => {
     axios
-      .post(variables.API_URL + "users/", {
+      .post(process.env.BACKEND_API_URL + "users/", {
         username: userName,
         email: userMail,
         password: password,
@@ -72,7 +72,7 @@ const User = () => {
 
   const updateClick = (id) => {
     axios
-      .put(variables.API_URL + "users/" + id, {
+      .put(process.env.BACKEND_API_URL + "users/" + id, {
         id: userId,
         username: userName,
         email: userMail,
@@ -90,7 +90,7 @@ const User = () => {
   const deleteClick = (id) => {
     if (window.confirm("Are you sure?")) {
       axios
-        .delete(variables.API_URL + "users/" + id)
+        .delete(process.env.BACKEND_API_URL + "users/" + id)
         .then((response) => {
           alert(response.status);
           refreshList();
