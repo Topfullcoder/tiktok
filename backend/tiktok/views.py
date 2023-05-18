@@ -208,7 +208,6 @@ def signup_view(request):
         username = data.get('username')
         email = data.get('email')
         password = data.get('password')
-        # hashed_password = make_password(password)
 
         # Create new user
         user = User.objects.create(
@@ -218,7 +217,7 @@ def signup_view(request):
         )
 
         user.save()
-        print(user)
+        print(user.id)
         if user is not None:
             return JsonResponse({'message': 'Signup successful'})
         else:
@@ -228,19 +227,22 @@ def signup_view(request):
 @api_view(['POST'])
 def signin_view(request):
     if request.method == 'POST':
-        data = json.loads(request.body)
+        data = request.data
         username_or_email = data.get('usernameOrEmail')
         password = data.get('inPassword')
-        users = User.objects.all()
-        print(users)
-        
-        user = authenticate(request, username=username_or_email, password=password)
+        user = User.objects.filter(username=username_or_email).first()
+
+        print(username_or_email)
         if user is not None:
+            print("asffsd")
+            # user = authenticate(request, username=user.username, password=user.password)
             login(request, user)
-            return JsonResponse({'message': 'Signin successful'})
+            # if user is not None:
+            #     return JsonResponse({'message': 'Signin successful'})
+            # else:
+            #     return JsonResponse({'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
         else:
-            return JsonResponse({'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
-        
+            return JsonResponse({'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)        
 @csrf_protect
 @api_view(['POST'])
 def signout_view(request):
