@@ -8,10 +8,11 @@ const Link = () => {
   const [linkName, setLinkName] = useState("");
   const [linkUrl, setLinkUrl] = useState("");
 
-
   const refreshList = () => {
+    console.log(process.env.REACT_APP_BACKEND_API_URL)
+
     axios
-      .get(process.env.BACKEND_API_URL + "links/")
+      .get(process.env.REACT_APP_BACKEND_API_URL + "links/")
       .then((response) => {
         setLinks(response.data);
       })
@@ -48,7 +49,7 @@ const Link = () => {
   const createClick = () => {
     axios
       .post(
-        process.env.BACKEND_API_URL + "links/",
+        process.env.REACT_APP_BACKEND_API_URL + "links/",
         {
           linkname: linkName,
           linkurl: linkUrl,
@@ -66,7 +67,7 @@ const Link = () => {
   const updateClick = (id) => {
     axios
       .put(
-        process.env.BACKEND_API_URL + "links/" + id,
+        `${process.env.BACKEND_API_URL} + "links/"` + id,
         {
           linkname: linkName,
           linkurl: linkUrl
@@ -90,7 +91,7 @@ const Link = () => {
   const deleteClick = (id) => {
     if (window.confirm("Are you sure?")) {
       axios
-        .delete(process.env.BACKEND_API_URL + "links/" + id, {
+        .delete(`${process.env.BACKEND_API_URL} + "links/"` + id, {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",

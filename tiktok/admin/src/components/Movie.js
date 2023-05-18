@@ -15,7 +15,7 @@ const Movie = () => {
 
   const refreshList = () => {
     axios
-      .get(process.env.BACKEND_API_URL + "movie-list-datetime/")
+      .get(process.env.REACT_APP_BACKEND_API_URL + "movie-list-datetime/")
       .then((response) => {
         setMovies(response.data);
       })
@@ -72,7 +72,7 @@ const Movie = () => {
   const createClick = () => {
     axios
       .post(
-        process.env.BACKEND_API_URL + "movies/",
+        process.env.REACT_APP_BACKEND_API_URL + "movies/",
         {
           movietitle: movieName,
           movietype: movieType,
@@ -101,7 +101,7 @@ const Movie = () => {
   const updateClick = (id) => {
     axios
       .put(
-        process.env.BACKEND_API_URL + "movies/" + id,
+        process.env.REACT_APP_BACKEND_API_URL + "movies/" + id,
         {
           id: movieId,
           movietitle: movieName,
@@ -130,7 +130,7 @@ const Movie = () => {
   const deleteClick = (id) => {
     if (window.confirm("Are you sure?")) {
       axios
-        .delete(process.env.BACKEND_API_URL + "movies/" + id, {
+        .delete(process.env.REACT_APP_BACKEND_API_URL + "movies/" + id, {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -153,7 +153,7 @@ const Movie = () => {
     formData.append("file", e.target.files[0], e.target.files[0].name);
 
     axios
-      .post(process.env.BACKEND_API_URL + "movies/", formData)
+      .post(process.env.REACT_APP_BACKEND_API_URL + "movies/", formData)
       .then((response) => {
         const data = response.data;
         setMovieFileName(data);

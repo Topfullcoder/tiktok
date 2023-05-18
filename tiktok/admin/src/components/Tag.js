@@ -10,7 +10,7 @@ const Tag = () => {
 
   const refreshList = () => {
     axios
-      .get(process.env.BACKEND_API_URL + "tags/")
+      .get(process.env.REACT_APP_BACKEND_API_URL + "tags/")
       .then((response) => {
         setTags(response.data);
       })
@@ -42,7 +42,7 @@ const Tag = () => {
   const createClick = () => {
     axios
       .post(
-        process.env.BACKEND_API_URL + "tags/",
+        process.env.REACT_APP_BACKEND_API_URL + "tags/",
         {
           tagname: tagName,
         },
@@ -65,7 +65,7 @@ const Tag = () => {
   const updateClick = (id) => {
     axios
       .put(
-        process.env.BACKEND_API_URL + "tags/" + id,
+        process.env.REACT_APP_BACKEND_API_URL + "tags/" + id,
         {
           tagname: tagName,
         },
@@ -88,7 +88,7 @@ const Tag = () => {
   const deleteClick = (id) => {
     if (window.confirm("Are you sure?")) {
       axios
-        .delete(process.env.BACKEND_API_URL + "tags/" + id, {
+        .delete(process.env.REACT_APP_BACKEND_API_URL + "tags/" + id, {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
